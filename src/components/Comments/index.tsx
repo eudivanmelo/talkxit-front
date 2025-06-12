@@ -1,13 +1,7 @@
 "use client";
 
+import { Comment } from "@/models/post";
 import { useState } from "react";
-
-interface Comment {
-    username: string;
-    date: string;
-    avatarUrl: string;
-    text: string;
-}
 
 interface CommentsProps {
     comments: Comment[];
@@ -49,16 +43,16 @@ export const Comments = ({ comments, expanded = false, onComment }: CommentsProp
                     <div key={idx} className="flex flex-col gap-2 w-full rounded-2xl bg-neutral-500 dark:bg-neutral-900 p-3">
                         <div className="flex items-center gap-2 ">
                             <img
-                                src={comment.avatarUrl}
+                                src={"https://via.placeholder.com/40"}
                                 alt="User Avatar"
                                 className="w-10 h-10 rounded-full bg-neutral-300 dark:bg-neutral-700"
                             />
                             <div className="flex flex-col">
-                                <span className="text-sm font-semibold">{comment.username}</span>
-                                <span className="text-xs text-gray-500 dark:text-gray-400">{comment.date}</span>
+                                <span className="text-sm font-semibold">{'Fulano de Tal'}</span>
+                                <span className="text-xs text-gray-500 dark:text-gray-400">{comment.created_at}</span>
                             </div>
                         </div>
-                        <p className="text-base text-gray-800 dark:text-gray-200">{comment.text}</p>
+                        <p className="text-base text-gray-800 dark:text-gray-200">{comment.content}</p>
                     </div>
                 ))
             ) : (

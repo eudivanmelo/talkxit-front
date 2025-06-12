@@ -3,14 +3,16 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 
-export default function Home() {
+export default function RequireAuth({ children }: { children: React.ReactNode }) {
   const { access } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (access) router.replace("/feed");
-    else router.replace("/login");
+    if (!access) {
+      router.replace("/login");
+    }
   }, [access, router]);
 
-  return null;
+  if (!access) return null;
+  return <>{children}</>;
 }

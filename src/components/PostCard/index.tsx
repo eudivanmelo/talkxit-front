@@ -3,25 +3,14 @@ import { Card } from "@/components/Card";
 import { Post } from "@/components/Post";
 import { Interactions } from "@/components/Interactions";
 import { Comments } from "@/components/Comments";
-
-interface Comment {
-  username: string;
-  date: string;
-  avatarUrl: string;
-  text: string;
-}
+import { Comment, Post as PostModel } from "@/models/post";
 
 interface PostCardProps {
-  post: {
-    avatar?: string;
-    username?: string;
-    date?: string;
-    content?: string;
-    comments: Comment[];
-  };
+  post: PostModel;
 }
 
 export function PostCard({ post }: PostCardProps) {
+  const comments: Comment[] = []
   const [showAllComments, setShowAllComments] = useState(false);
 
   const handleShowAllComments = () => setShowAllComments((v) => !v);
@@ -33,16 +22,15 @@ export function PostCard({ post }: PostCardProps) {
   return (
     <Card>
       <Post
-        avatar={post.avatar}
-        username={post.username}
-        date={post.date}
+        username={''}
+        date={post.created_at}
         content={post.content}
       />
       <hr className="my-4 w-full border-neutral-200 dark:border-neutral-700" />
-      <Interactions likes={0} comments={post.comments.length} onComment={handleShowAllComments} />
+      <Interactions likes={0} comments={comments.length} onComment={handleShowAllComments} />
       <hr className="my-4 w-full border-neutral-200 dark:border-neutral-700" />
       <Comments
-        comments={post.comments}
+        comments={comments}
         expanded={showAllComments}
         onComment={handleComment}
       />
